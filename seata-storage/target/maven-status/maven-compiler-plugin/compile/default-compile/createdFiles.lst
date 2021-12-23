@@ -1,0 +1,7 @@
+com\example\seatastorage\common\CommonResult.class
+com\example\seatastorage\SeataStorageApplication.class
+com\example\seatastorage\mapper\StorageDao.class
+com\example\seatastorage\controller\StorageController.class
+com\example\seatastorage\service\impl\StorageServiceImpl.class
+com\example\seatastorage\service\StorageService.class
+com\example\seatastorage\entry\Storage.class

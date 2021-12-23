@@ -1,0 +1,59 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage
+  cloud:
+    alibaba:
+    #      seata:
+    #        #自定义事务组名称需要与seata-server中的对应
+    #        tx-service-group: my_test_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        group: SEATA_GROUP
+  #        namespace: c9829d3b-5e7c-4d41-b0f1-00c4240c9c21 不指定命名空间。默认public
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seata_storage?useUnicode=true&characterEncoding=utf-8&useSSL=NO&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
+seata:
+  tx-service-group: my_test_tx_group #这里要特别注意和nacos中配置的要保持一直
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      username: ${spring.cloud.nacos.discovery.username}
+      password: ${spring.cloud.nacos.discovery.password}
+      group: ${spring.cloud.nacos.discovery.group}
+      #namespace: c9829d3b-5e7c-4d41-b0f1-00c4240c9c21 默认public
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.discovery.server-addr}
+      username: ${spring.cloud.nacos.discovery.username}
+      password: ${spring.cloud.nacos.discovery.password}
+      group: ${spring.cloud.nacos.discovery.group}
+      namespace: 9c8bc235-49eb-452d-b1d3-aae263f74fa3  #2.2中配置所在命名空间ID，入未配置 默认public空间
+  service:
+    vgroup-mapping:
+      my_test_tx_group: default		# 这里要特别注意和nacos中配置的要保持一直
+
+
