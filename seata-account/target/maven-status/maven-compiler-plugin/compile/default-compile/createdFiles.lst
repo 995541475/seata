@@ -1,7 +1,0 @@
-com\example\seataaccount\controller\AccountController.class
-com\example\seataaccount\mapper\AccountDao.class
-com\example\seataaccount\common\CommonResult.class
-com\example\seataaccount\service\AccountService.class
-com\example\seataaccount\service\impl\AccountServiceImpl.class
-com\example\seataaccount\entry\Account.class
-com\example\seataaccount\SeataAccountApplication.class
