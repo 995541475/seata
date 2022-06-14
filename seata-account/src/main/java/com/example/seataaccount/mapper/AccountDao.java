@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import java.math.BigDecimal;
 
 /**
- * @author
+ *
  */
 @Mapper
 public interface AccountDao {
