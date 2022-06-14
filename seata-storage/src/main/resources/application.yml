@@ -51,9 +51,9 @@ seata:
       username: ${spring.cloud.nacos.discovery.username}
       password: ${spring.cloud.nacos.discovery.password}
       group: ${spring.cloud.nacos.discovery.group}
-      namespace: 9c8bc235-49eb-452d-b1d3-aae263f74fa3  #2.2中配置所在命名空间ID，入未配置 默认public空间
+      namespace: d8601be2-7672-43d7-8014-7a4cbb3909ae  #2.2中配置所在命名空间ID，入未配置 默认public空间
   service:
     vgroup-mapping:
-      my_test_tx_group: default		# 这里要特别注意和nacos中配置的要保持一直
+      my_test_tx_group: default		# 这里要特别注意和nacos中配置的要保持一致，与这个配置 service.vgroupMapping.my_test_tx_group=seata-group
 
 

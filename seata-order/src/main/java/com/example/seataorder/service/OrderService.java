@@ -4,7 +4,7 @@ package com.example.seataorder.service;
 import com.example.seataorder.entry.Order;
 
 /**
- * @author zhubayi
+ * @author i
  */
 public interface OrderService {
     /**
