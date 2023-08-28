@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
         orderDao.updateStatus(order.getUserId(),0);
         log.info("=====>{}","修改订单状态成功");
 
-        // 故意制造异常  测试分布式事务
+//         故意制造异常  测试分布式事务
 //        int  number = 1/0;
         log.info("=====>{}","end");
     }

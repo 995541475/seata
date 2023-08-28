@@ -24,23 +24,30 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!--seata-->
+        <!-- 注意一定要引入对版本，要引入spring-cloud版本seata，而不是springboot版本的seata-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <!-- 排除掉springcloud默认的seata版本，以免版本不一致出现问题-->
             <exclusions>
-                <!--   排除默认的-->
                 <exclusion>
                     <groupId>io.seata</groupId>
                     <artifactId>seata-spring-boot-starter</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 上面排除掉了springcloud默认seata版本，此处引入和seata-server版本对应的seata包-->
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.2</version>
         </dependency>
+        <!-- spring cloud zipkin 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+
         <!--feign-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

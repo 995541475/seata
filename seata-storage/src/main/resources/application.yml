@@ -15,19 +15,31 @@ spring:
         username: nacos
         password: nacos
         group: SEATA_GROUP
-  #        namespace: c9829d3b-5e7c-4d41-b0f1-00c4240c9c21 不指定命名空间。默认public
+        namespace: 526fc62a-4620-4c5b-8df3-eaf992f45799 #不指定命名空间。默认public
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/seata_storage?useUnicode=true&characterEncoding=utf-8&useSSL=NO&serverTimezone=Asia/Shanghai
     username: root
     password: root
-
+  zipkin:
+    base-url: http://localhost:9411/ # 服务端地址
+    sender:
+      type: web # 数据传输方式，web 表示以 HTTP 报文的形式向服务端发送数据
+  sleuth:
+    sampler:
+      probability: 1.0  # 收集数据百分比，默认 0.1（10%）
 feign:
   hystrix:
     enabled: false
-
+  client:
+    config:
+      default:
+        logger-level: full #默认为none，还可选择basic、headers、full
+        connect-timeout: 300000
+        read-timeout: 300000
 logging:
   level:
+    root: debug
     io:
       seata: info
 
@@ -35,25 +47,18 @@ mybatis:
   mapperLocations: classpath:mapper/*.xml
 
 seata:
-  tx-service-group: my_test_tx_group #这里要特别注意和nacos中配置的要保持一直
-  registry:
+  tx-service-group: my_test_tx_group  # 与nacos事务分组配置项保持一致
+  registry:  # 注册中心
     type: nacos
     nacos:
-      server-addr: ${spring.cloud.nacos.discovery.server-addr}
-      username: ${spring.cloud.nacos.discovery.username}
-      password: ${spring.cloud.nacos.discovery.password}
-      group: ${spring.cloud.nacos.discovery.group}
-      #namespace: c9829d3b-5e7c-4d41-b0f1-00c4240c9c21 默认public
-  config:
+      application: seata-server      # seata-server注册在nacos中的服务名
+      server-addr: 127.0.0.1:8848    # nacos的地址端口
+      group: SEATA_GROUP            # seata-server在nacos的分组
+      namespace: 526fc62a-4620-4c5b-8df3-eaf992f45799   # seata-server在nacos的命名空间ID
+  config:  # 配置中心
     type: nacos
     nacos:
-      server-addr: ${spring.cloud.nacos.discovery.server-addr}
-      username: ${spring.cloud.nacos.discovery.username}
-      password: ${spring.cloud.nacos.discovery.password}
-      group: ${spring.cloud.nacos.discovery.group}
-      namespace: d8601be2-7672-43d7-8014-7a4cbb3909ae  #2.2中配置所在命名空间ID，入未配置 默认public空间
-  service:
-    vgroup-mapping:
-      my_test_tx_group: default		# 这里要特别注意和nacos中配置的要保持一致，与这个配置 service.vgroupMapping.my_test_tx_group=seata-group
-
-
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      namespace: 526fc62a-4620-4c5b-8df3-eaf992f45799     # 与配置项命名空间ID保持一致
+      dataId: myseata-seata.properties       # 与配置项Data Id保持一致
